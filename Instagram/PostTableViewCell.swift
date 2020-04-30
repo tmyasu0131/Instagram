@@ -50,13 +50,6 @@ class PostTableViewCell: UITableViewCell {
             formatter.dateFormat = "yyyy-MM-dd HH:mm"
             let dateString = formatter.string(from: date)
             self.dateLabel.text = dateString
-        
-        // コメンターとコメントの追加
-        if postData.comment != nil && postData.commenter != nil {
-            self.commentLabel.text = "\(postData.commenter!): \(postData.comment!)"
-            } else {
-            self.commentLabel.text = nil
-            }
         }
         // いいね数の表示
         let likeNumber = postData.likes.count
@@ -69,6 +62,15 @@ class PostTableViewCell: UITableViewCell {
         } else {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
+        }
+        
+        var allComment = ""
+        //postData.commentsの中から要素をひとつずつ取り出すのを繰り返す
+        for comment in postData.comments{
+        //comment + comment = allCommentである
+            allComment += comment
+        //commentLabelに表示するのはallComment（commentを足していったもの）である
+            self.commentLabel.text = allComment
         }
     }
 }
